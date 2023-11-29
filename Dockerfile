@@ -1,13 +1,6 @@
 FROM debian:latest
 LABEL maintainer="Manuel Trunk"
 
-# Confiure locale
-ENV \
-    LANG=en_US.UTF-8 \
-    LANGUAGE=en_US:en \
-    LC_ALL=en_US.UTF-8 \
-    PIP_BREAK_SYSTEM_PACKAGES=1
-
 RUN apt-get update && \
     apt-get upgrade && \
     apt-get -y install wget gpg && \
@@ -17,6 +10,13 @@ RUN apt-get update && \
     rm -f packages.microsoft.gpg && \
     apt -y install apt-transport-https && \
     apt update && \
-    apt -y install code
+    apt -y install code && \
+    useradd -ms /bin/bash vscode_user
+
+USER vscode_user
+
+WORKDIR /home/vscode_user/vscode
 
 CMD code serve-web --host 0.0.0.0 --without-connection-token --accept-server-license-terms
+
+EXPOSE 8000/tcp
