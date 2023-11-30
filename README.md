@@ -15,8 +15,9 @@ No SSH or other requirements
 ## Getting Started <a name = "getting_started"></a>
 
 docker build -t "manut999/vscode-serve-web" .   
-docker run --name vscode-web -d -p 8000:8000 -v ./vscode:/home/vscode_user/vscode manut999/vscode-serve-web
+docker run --name vscode-web -d -p 8000:8000 -v ~/manubuntu/vscode_web_files:/home/vscode_user -v ~/manubuntu/code:/home/vscode_user/projects manut999/vscode-serve-web
 docker stop vscode-web
+docker container prune
 
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
