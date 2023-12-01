@@ -53,7 +53,7 @@ services:
 
 ## Setup git
 
-Login to VSCode and then, use 
+Login to VSCode and then use 
 ```
 git config --global user.name "John Doe"
 git config --global user.email "johndoe@email.com"
