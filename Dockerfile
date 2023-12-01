@@ -2,6 +2,8 @@ FROM debian:latest
 LABEL maintainer="Manuel Trunk"
 
 EXPOSE 8000/tcp
+ARG GID=1000
+ARG UID=1000
 
 RUN apt-get update && \
     apt-get upgrade && \
@@ -13,19 +15,14 @@ RUN apt-get update && \
     apt -y install apt-transport-https && \
     apt update && \
     apt -y install git code && \
-    groupadd --gid 1000 vscode_group && \
-    useradd --uid 1000 --gid 1000 -ms /bin/bash vscode_user && \
-    chown -R 1000:1000 /home/vscode_user
+    groupadd --gid ${GID} vscode_group && \
+    useradd --uid ${UID} --gid ${GID} -ms /bin/bash vscode_user && \
+    chown -R ${GID}:${UID} /home/vscode_user
 
 USER vscode_user
 WORKDIR /home/vscode_user
 
 RUN mkdir /home/vscode_user/projects
-
-#RUN addgroup --gid 1000 app && \
-#    adduser --uid 1000 --gid 1000 --disabled-password --gecos App app
-#USER app
-#WORKDIR /home/app
 
 CMD code serve-web --host 0.0.0.0 --without-connection-token --accept-server-license-terms
 
