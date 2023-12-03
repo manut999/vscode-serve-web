@@ -23,6 +23,8 @@ USER vscode_user
 WORKDIR /home/vscode_user
 
 RUN mkdir /home/vscode_user/projects
+RUN mkdir /home/vscode_user/projects2
+
 
 CMD code serve-web --host 0.0.0.0 --without-connection-token --accept-server-license-terms
 
